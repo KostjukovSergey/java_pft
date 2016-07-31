@@ -18,17 +18,21 @@ public class GroupCreationTests {
     FirefoxDriver wd;
     
     @BeforeMethod
-    public void setUp() throws Exception {
-        wd = new FirefoxDriver();
+        public void setUp() throws Exception {
+          wd = new FirefoxDriver();
         wd.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
+      wd.get("http://localhost/addressbook/group.php");
+      wd.findElement(By.name("user")).click();
+      wd.findElement(By.name("user")).clear();
+      wd.findElement(By.name("user")).sendKeys("admin");
+      wd.findElement(By.name("pass")).click();
+      wd.findElement(By.name("pass")).clear();
+      wd.findElement(By.name("pass")).sendKeys("secret");
+      wd.findElement(By.xpath("//form[@id='LoginForm']/input[3]")).click();
     }
     
     @Test
-    public void GroupCreationTests() {
-        wd.get("http://localhost/addressbook/group.php");
-        wd.findElement(By.name("pass")).click();
-        wd.findElement(By.name("pass")).sendKeys("\\undefined");
-        wd.findElement(By.xpath("//form[@id='LoginForm']/input[3]")).click();
+    public void testGroupCreation() {
         wd.findElement(By.cssSelector("body")).click();
         wd.findElement(By.linkText("groups")).click();
         wd.findElement(By.cssSelector("body")).click();
